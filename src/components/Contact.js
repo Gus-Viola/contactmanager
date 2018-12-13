@@ -13,6 +13,10 @@ class Contact extends Component { // eslint-disable-line react/prefer-stateless-
     this.setState({showContactInfo: !this.state.showContactInfo})
   }//onShowClick. I kept this function, unlike Mr. Traversy.
 
+  onDeleteClick = () => {
+    this.props.deleteClickHandler();
+  }
+
   render() {
     const { name, email, phone } = this.props.contact;
     const { showContactInfo } = this.state;
@@ -22,7 +26,13 @@ class Contact extends Component { // eslint-disable-line react/prefer-stateless-
         <h4>{name}{" "}
           <i
             onClick={this.onShowClick}
-            className="fas fa-sort-down">
+            className="fas fa-sort-down"
+            style={{cursor: 'pointer'}}>
+          </i>
+          <i
+            onClick={this.onDeleteClick}
+            className="fas fa-times"
+            style={{cursor: 'pointer', float: 'right', color: 'red'}}>
           </i>
       </h4>
         {showContactInfo ? (        <ul className="list-group">
@@ -36,7 +46,8 @@ class Contact extends Component { // eslint-disable-line react/prefer-stateless-
 }
 
 Contact.propTypes = {
-  contact: PropTypes.object.isRequired
+  contact: PropTypes.object.isRequired,
+  deleteClickHandler: PropTypes.func.isRequired
 }
 
 export default Contact;
